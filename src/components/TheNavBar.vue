@@ -1,43 +1,31 @@
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      XXXXXX
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-    </h3>
-  </div>
+  <nav class="navbar px-4">
+    <a href="#" class="d-flex align-item-center justify-center text-decoration-none">
+      <img class="me-2" src="@/assets/image/logo.svg" alt="logo">
+      <h1 target="_blank" rel="noopener">{{companyName}}</h1>
+    </a>
+  </nav>
 </template>
 
 <script setup>
 defineProps({
-  msg: {
+  companyName: {
     type: String,
     required: true
   }
 })
 </script>
 
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+<style lang="scss" scoped>
+.navbar{
+  background: #604C3F;
+  margin-top: 0;
+  height: 80px;
+  h1 {
+    font-size: 24px;
+    color: #fff;
+    letter-spacing: 3px;
+    margin-bottom: 0;
   }
 }
 </style>

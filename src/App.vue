@@ -1,13 +1,7 @@
 <template>
-  <header>
-    <div class="wrapper">
-      <TheNavBar />
-      <!--<nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>-->
-    </div>
-  </header>
+  <div class="wrapper">
+    <TheNavBar companyName="星訓中心"/>
+  </div>
 
   <RouterView />
 </template>
