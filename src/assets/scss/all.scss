@@ -1,0 +1,30 @@
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/mixins';
+
+//@import './helpers/mixin';  //自己的
+@import './helpers/variables'; //自己的
+@import "bootstrap";
+
+// heading
+h1, h2, h3, h4, h5, h6, p {
+  margin-bottom: 0;
+}
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 20px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 1rem;
+}
+small, .small {
+  font-size: 14px;
+}

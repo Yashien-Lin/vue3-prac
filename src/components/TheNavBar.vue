@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar px-4">
+  <nav class="navbar px-4 m-0">
     <a href="#" class="d-flex align-item-center justify-center text-decoration-none">
       <img class="me-2" src="@/assets/image/logo.svg" alt="logo">
       <h1 target="_blank" rel="noopener">{{companyName}}</h1>
@@ -19,7 +19,6 @@ defineProps({
 <style lang="scss" scoped>
 .navbar{
   background: #604C3F;
-  margin-top: 0;
   height: 80px;
   h1 {
     font-size: 24px;
