@@ -6,8 +6,8 @@
     <div class="card card-body">
       <slot></slot>
       <div class="py-4 d-flex justify-content-center">
-        <button class="btn btn-outline-primary mx-2" @click="reset()">清除搜尋</button>
-        <button class="btn btn-primary mx-2" @click="addFunc">搜尋</button>
+        <button class="btn btn-outline-primary mx-2" @click="reset">清除搜尋</button>
+        <button class="btn btn-primary mx-2" @click="getTableData">搜尋</button>
       </div>
     </div>
   </div>
@@ -16,38 +16,27 @@
 
 <script setup>
 // component、plugin、第三方套件
-import { onMounted, onUnmounted, ref } from "vue";
+// import { onMounted } from "vue";
 
 // props & emit
 const props = defineProps({
-  search: Object
+  search: Object,
 })
+const emit = defineEmits(['update:search', 'getTableData']) // 若emit直接寫在template，就不用先定義
 
 // 自定義變數
-const count = ref(0);
-const isDisabled = ref(false);
+const copySearch = JSON.parse(JSON.stringify(props.search))
+
 
 // methods
-let times = 0;
-const addFunc = () => {
-  count.value +=1;
-  times +=1;
-  if (times >=5) {
-    console.log('times:', times);
-    isDisabled.value = true
-  }
-}
-
 const reset = () => {
-  console.log('search:', search);
+  emit('update:search', JSON.parse(JSON.stringify(copySearch)))
 }
-
-const getData = () => {}
+const getTableData = () => {
+  emit('getTableData')
+}
 
 // 生命週期(按執行順序)
-onMounted(()=> {
-  getData();
-})
 
 </script>
 

@@ -1,7 +1,10 @@
 <template>
   <div class="container p-4">
     <h3 class="mb-4">試卷管理</h3>
-    <SearchBar> <!--@re-set="reSet"-->
+    <SearchBar 
+      v-model:search="search" 
+      @getTableData="getData"
+    >
       <div class="row gy-3">
         <div class="col-12 col-md-6 col-lg-4">
           <label class="mb-2">名稱</label>
@@ -11,6 +14,7 @@
         <div class="col-12 col-md-6 col-lg-4">
           <label class="mb-2">試卷類別</label>
           <select class="form-select" v-model="search.test_category_id">
+            <option value="" selected disabled>請選擇試卷類別</option>
             <option v-for="(item, index) in ddl.testTypeList" :key="index" :value="item.id">
               {{ item.text }}
             </option>
@@ -18,15 +22,16 @@
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label class="mb-2">出題方式</label>
-          <select class="form-select" v-model="search.is_auto.id">
-            <option selected value="0">自動</option>
-            <option value="1">手動</option>
+          <select class="form-select" v-model="search.is_auto">
+            <option value="" selected disabled>請選擇出題方式</option>
+            <option value="1">自動</option>
+            <option value="2">手動</option>
           </select> 
         </div>
       </div>
       search: {{ search }}
     </SearchBar>
-    <button class="btn btn-primary" @click="reset">reset</button>
+    <!-- <button class="btn btn-primary" @click="reset">reset</button> -->
     <button class="btn btn-outline-primary" @click="changeName">changeName</button>
   </div>
 </template>
@@ -45,16 +50,20 @@ const ddl = ref({
 })
 const search = ref({
   name: '',
-  test_category_id: 1,
-  is_auto: {
-    id: 0,
-    text: ''
-  }
+  test_category_id: '',
+  is_auto: ''
 })
 
-const reset = () => {
-  const copySearch = JSON.parse(JSON.stringify(search.value))
-  console.log(copySearch);
+const getData = () => {
+  const config = {
+    method: 'POST',
+    url: `/api/v1/test/data-table`,
+    data: {
+      search: search.value,
+    }
+  };
+  console.log('config:', config);
+  // submit api
 }
 
 const changeName = () => {
