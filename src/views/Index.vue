@@ -3,7 +3,7 @@
     <h3 class="mb-4">試卷管理</h3>
     <SearchBar 
       v-model:search="search" 
-      @getTableData="getData"
+      @get-data="getTableData"
     >
       <div class="row gy-3">
         <div class="col-12 col-md-6 col-lg-4">
@@ -31,14 +31,27 @@
       </div>
       search: {{ search }}
     </SearchBar>
-    <!-- <button class="btn btn-primary" @click="reset">reset</button> -->
-    <button class="btn btn-outline-primary" @click="changeName">changeName</button>
+    <BaseTable :pages="pagination" :get-data="getTableData">
+      <template v-slot:table-header>
+        <tr>
+					<th>編號</th>
+					<th>試卷名稱</th>
+					<th>試卷類別</th>
+					<th>出題方式</th>
+					<th>開卷期間</th>
+					<th>試卷狀態</th>
+					<th>限時</th>
+					<th>操作</th>
+				</tr>
+      </template>
+    </BaseTable>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import SearchBar from '../components/SearchBar.vue'
+import BaseTable from '../components/BaseTable.vue'
 
 //const labelList = ref([ '名稱', '試卷類別','出題方式' ])
 const ddl = ref({
@@ -53,13 +66,146 @@ const search = ref({
   test_category_id: '',
   is_auto: ''
 })
+const pagination = ref({ 
+  count: 10, 
+  current_page: 1,
+  end: 10,
+  length: 10,
+  start: 1,
+  total: 50,
+  total_pages: 100
+})
+const tableData = [
+  {
+    "id": 171,
+    "category": "機車駕照筆試",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:10:00",
+    "name": "測試週期試卷(每半年1~31)-0804",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  },
+  {
+    "id": 170,
+    "category": "機車駕照筆試",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:10:00",
+    "name": "測試週期試卷(每半年)-0804",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  },
+  {
+    "id": 169,
+    "category": "機車駕照筆試",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:10:00",
+    "name": "測試週期試卷(每月15~31)-0804",
+    "status": true,
+    "is_editable_test": true,
+    "is_editable_status": true
+  },
+  {
+    "id": 168,
+    "category": "機車駕照筆試",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:10:00",
+    "name": "測試週期試卷(每月1~15)-0804",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  },
+  {
+    "id": 167,
+    "category": "機車駕照筆試",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:10:00",
+    "name": "測試週期試卷0804",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  },
+  {
+    "id": 166,
+    "category": "機車駕照筆試",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:10:00",
+    "name": "測試週期試卷0804",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  },
+  {
+    "id": 165,
+    "category": "特殊考試",
+    "start_date": "2023/07/13",
+    "end_date": "2023/07/13",
+    "is_auto": "自動",
+    "limited_time": "00:03:00",
+    "name": "培訓驗收測試",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  },
+  {
+    "id": 164,
+    "category": "特殊考試",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:30:00",
+    "name": "例行考試230711",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  },
+  {
+    "id": 163,
+    "category": "操作",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:15:00",
+    "name": "考試230711",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  },
+  {
+    "id": 162,
+    "category": "機車駕照筆試",
+    "start_date": "",
+    "end_date": "",
+    "is_auto": "自動",
+    "limited_time": "00:20:00",
+    "name": "考試230710",
+    "status": true,
+    "is_editable_test": false,
+    "is_editable_status": true
+  }
+]
 
-const getData = () => {
+const getTableData = (currentPage=1, length=10) => {
   const config = {
     method: 'POST',
     url: `/api/v1/test/data-table`,
     data: {
       search: search.value,
+      page: currentPage,
+      length: length
     }
   };
   console.log('config:', config);

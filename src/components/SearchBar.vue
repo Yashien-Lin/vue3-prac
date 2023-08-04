@@ -2,12 +2,12 @@
   <div class="card-header" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     <h3 class="p-3">進階搜尋</h3>
   </div>
-  <div class="collapse" id="collapseExample">
+  <div class="collapse mb-5" id="collapseExample">
     <div class="card card-body">
       <slot></slot>
       <div class="py-4 d-flex justify-content-center">
         <button class="btn btn-outline-primary mx-2" @click="reset">清除搜尋</button>
-        <button class="btn btn-primary mx-2" @click="getTableData">搜尋</button>
+        <button class="btn btn-primary mx-2" @click="getData">搜尋</button>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
 const props = defineProps({
   search: Object,
 })
-const emit = defineEmits(['update:search', 'getTableData']) // 若emit直接寫在template，就不用先定義
+const emit = defineEmits(['update:search', 'getData']) // 若emit直接寫在template，就不用先定義
 
 // 自定義變數
 const copySearch = JSON.parse(JSON.stringify(props.search))
@@ -32,8 +32,8 @@ const copySearch = JSON.parse(JSON.stringify(props.search))
 const reset = () => {
   emit('update:search', JSON.parse(JSON.stringify(copySearch)))
 }
-const getTableData = () => {
-  emit('getTableData')
+const getData = () => {
+  emit('getData')
 }
 
 // 生命週期(按執行順序)
