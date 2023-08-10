@@ -1,8 +1,8 @@
 <template>
-  <div class="card-header" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  <div class="card-header" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">
     <h3 class="p-3">進階搜尋</h3>
   </div>
-  <div class="collapse mb-5" id="collapseExample">
+  <div class="collapse show" id="collapseExample">
     <div class="card card-body">
       <slot></slot>
       <div class="py-4 d-flex justify-content-center">

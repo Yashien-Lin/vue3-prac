@@ -1,16 +1,5 @@
 <template>
-	<div class="datatable table-responsive">
-		<!-- v-slot: tabs -->
-		<div class="mb-3" v-if="hasContent('tabs')">
-			<slot name="tabs"></slot>
-		</div>
-		<div class="top d-flex flex-column flex-sm-row align-items-center mb-3" v-if="hasContent('btns')">
-			<!-- 按鈕 -->
-			<div class="table-btn d-flex ml-sm-auto">
-				<!-- v-slot: 按鈕 -->
-				<slot name="btns"></slot>
-			</div>
-		</div>
+	<div class="datatable table-responsive mt-4">
 		<!-- 表格: slot 插入 table-header / table-body / card -->
 		<div class="main-table">
 			<!-- 電腦版 -->
@@ -21,18 +10,12 @@
 				</thead>
 				<tbody>
 					<!-- v-slot: tbody 內容 -->
-					<slot name="table-body" v-if="hasContent('table-body')"></slot>
-					<tr v-else>
+					<slot name="table-body"></slot>
+					<!-- <tr v-else>
 						<td class="table-empty" :colspan="getHeaderLength()">沒有符合的結果</td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
-			<!-- 行動裝置 -->
-			<div class="main-card d-lg-none" v-if="hasCard">
-				<!-- v-slot: 卡片內容 -->
-				<slot name="card" v-if="hasContent('card')"></slot>
-				<div class="table-empty text-center mb-3" v-else>沒有符合的結果</div>
-			</div>
 		</div>
 		<div class="bottom d-flex flex-column flex-lg-row align-items-center mt-2" v-if="!isHideBottom">
 			<div class="d-flex flex-column flex-md-row align-items-center mt-3 mt-lg-0">

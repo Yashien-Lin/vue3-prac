@@ -1,0 +1,44 @@
+$border-radius-custom: 1.2rem !default;
+$navbar-height: 80px;
+
+// custom bootstrap border style
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .border#{$infix}-top {      border-top: $border-width solid $border-color !important; }
+        .border#{$infix}-right {    border-right: $border-width solid $border-color !important; }
+        .border#{$infix}-bottom {   border-bottom: $border-width solid $border-color !important; }
+        .border#{$infix}-left {     border-left: $border-width solid $border-color !important; }
+
+        .border#{$infix}-top-0 {    border-top: 0 !important; }
+        .border#{$infix}-right-0 {  border-right: 0 !important; }
+        .border#{$infix}-bottom-0 { border-bottom: 0 !important; }
+        .border#{$infix}-left-0 {   border-left: 0 !important; }
+
+        .border#{$infix}-x {
+            border-left: $border-width solid $border-color !important;
+            border-right: $border-width solid $border-color !important;
+        }
+
+        .border#{$infix}-y {
+            border-top: $border-width solid $border-color !important;
+            border-bottom: $border-width solid $border-color !important;
+        }
+    }
+}
+
+// input disabled style
+@mixin input-disabled {
+    background-color: $gray-300;
+    border-color: $gray-300 !important;
+    color: $gray-700 !important;
+    pointer-events: none;
+}
+
+@mixin form-check-disabled {
+    background-color: $gray-300;
+    border-color: $gray-300 !important;
+    box-shadow: 0 0 0 1px $gray-500;
+    pointer-events: none;
+}

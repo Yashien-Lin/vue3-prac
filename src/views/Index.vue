@@ -44,6 +44,32 @@
 					<th>操作</th>
 				</tr>
       </template>
+      <template v-slot:table-body>
+				<tr v-for="(item, index) in tableData" :key="item.id">
+					<!-- <td>{{ $refs.datatable.getRowIndex(index) }}</td> -->
+          <td>{{ index + 1  }}</td>
+					<td class="test-name text-wrap">
+						<span class="text-left d-inline-block mx-auto">{{ item.name }}</span>
+					</td>
+					<td>{{ item.category }}</td>
+					<td>{{ item.is_auto }}</td>
+					<td>{{ item.start_date }} - {{ item.end_date }}</td>
+					<td>
+						<div class="form-check form-switch">
+							<input class="form-check-input flex-shrink-0" type="checkbox" v-model="item.status" @focus="savePrevValue(item.id, item.status)"
+								@change="checkChangeStatus(item.id)" :disabled="item.status === false">
+						</div>
+					</td>
+					<td>{{ item.limited_time }}</td>
+					<td>
+						<div class="d-flex justify-content-center">
+							<BaseTableBtn :btn-name="'編輯'" :icon-name="'edit'" class="mr-2" @click="editTest(item.id)" :disabled="!item.is_editable_test"></BaseTableBtn>
+							<BaseTableBtn :btn-name="'預覽'" :icon-name="'review'" class="mx-2" @click="previewTest(item.id, item.name)"></BaseTableBtn>
+							<BaseTableBtn :btn-name="'複製'" :icon-name="'copy'" class="ml-2" @click="copyTest(item.id)"></BaseTableBtn>
+						</div>
+					</td>
+				</tr>
+			</template>
     </BaseTable>
   </div>
 </template>
@@ -52,6 +78,7 @@
 import { ref } from 'vue'
 import SearchBar from '../components/SearchBar.vue'
 import BaseTable from '../components/BaseTable.vue'
+import BaseTableBtn from '../components/BaseTableBtn.vue'
 
 //const labelList = ref([ '名稱', '試卷類別','出題方式' ])
 const ddl = ref({
@@ -85,7 +112,7 @@ const tableData = [
     "limited_time": "00:10:00",
     "name": "測試週期試卷(每半年1~31)-0804",
     "status": true,
-    "is_editable_test": false,
+    "is_editable_test": true,
     "is_editable_status": true
   },
   {

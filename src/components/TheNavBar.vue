@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar px-4 m-0">
     <a href="#" class="d-flex align-item-center justify-center text-decoration-none">
-      <img class="me-2" src="@/assets/image/logo.svg" alt="logo">
+      <img class="me-2" src="@/assets/img/logo.svg" alt="logo">
       <h1 target="_blank" rel="noopener">{{companyName}}</h1>
     </a>
   </nav>
