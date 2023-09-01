@@ -71,15 +71,28 @@
 				</tr>
 			</template>
     </BaseTable>
+    <AlertChangeStatusModal :editStatus="editStatus" ref="modal"></AlertChangeStatusModal>
+    
+    <!-- Vimeo -->
+		<div style="padding:56.25% 0 0 0;position:relative;">
+			<iframe src="https://player.vimeo.com/video/854693954?#t=7&badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+				frameborder="0" allow="autoplay; fullscreen; picture-in-picture"
+				style="position:absolute;top:0;left:0;width:100%;height:100%;"
+				title="Summer Collection Launch">
+			</iframe>
+		</div>
+    現在秒數: {{ currentSecond }}
+    
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+
 import SearchBar from '../components/SearchBar.vue'
 import BaseTable from '../components/BaseTable.vue'
 import BaseTableBtn from '../components/BaseTableBtn.vue'
-
+import AlertChangeStatusModal from './components/AlertChangeStatusModal.vue'
 //const labelList = ref([ '名稱', '試卷類別','出題方式' ])
 const ddl = ref({
   testTypeList: [ 
@@ -106,8 +119,8 @@ const tableData = [
   {
     "id": 171,
     "category": "機車駕照筆試",
-    "start_date": "",
-    "end_date": "",
+    "start_date": "2023/08/10",
+    "end_date": "2023/08/18",
     "is_auto": "自動",
     "limited_time": "00:10:00",
     "name": "測試週期試卷(每半年1~31)-0804",
@@ -154,8 +167,8 @@ const tableData = [
   {
     "id": 167,
     "category": "機車駕照筆試",
-    "start_date": "",
-    "end_date": "",
+    "start_date": "2023/08/10",
+    "end_date": "2023/08/31",
     "is_auto": "自動",
     "limited_time": "00:10:00",
     "name": "測試週期試卷0804",
@@ -224,6 +237,13 @@ const tableData = [
     "is_editable_status": true
   }
 ]
+const modal = ref([])
+const editStatus = {
+  id: '',
+  status: '',
+  name: ''
+}
+const currentSecond = ref()
 
 const getTableData = (currentPage=1, length=10) => {
   const config = {
@@ -239,10 +259,59 @@ const getTableData = (currentPage=1, length=10) => {
   // submit api
 }
 
-const changeName = () => {
-  search.value.is_auto.text = '改值'
-  console.log('search:', search);
+// const moodal = (el) => {
+//   console.log(el);
+// }
+
+const checkChangeStatus = () => {
+  // $('#alert_change_status_modal').modal('show')
+  document.addEventListener('hidden.bs.modal', () => {
+    console.log(123)
+  })
 }
+
+const savePrevValue = () => {
+  console.log('savePrevValue');
+}
+
+onMounted(() => {
+  var iframe = document.querySelector('iframe');
+  // var player = new Vimeo.Player(iframe);
+
+  var player = new Player(iframe);
+  
+  // 監聽播放
+  player.on('play', function() {
+    console.log('Played the video');
+  });
+  // 監聽暫停
+  player.on('pause', function(pause) {
+    console.log('pause:', pause.seconds);
+  });
+  // 暫停事件
+  player.getPaused().then(function(paused) {
+    console.log('getPaused()', paused);
+  });
+
+  // const endPlay = () => {
+  //   console.log('end video');
+  // }
+
+  // player.on('ended', endPlay);
+
+  // player.off('ended', endPlay); 
+
+  
+  player.getVideoTitle().then(function(title) {
+    console.log('title:', title);
+  });
+
+  player.on('timeupdate', function(time){
+    currentSecond.value = time.seconds
+    console.log('second:', time.seconds);
+  });
+})
+
 
 </script>
 

@@ -16,7 +16,7 @@
 
 <script setup>
 // component、plugin、第三方套件
-// import { onMounted } from "vue";
+import { onMounted } from "vue";
 
 // props & emit
 const props = defineProps({
