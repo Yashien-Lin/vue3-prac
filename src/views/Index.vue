@@ -93,6 +93,8 @@ import SearchBar from '../components/SearchBar.vue'
 import BaseTable from '../components/BaseTable.vue'
 import BaseTableBtn from '../components/BaseTableBtn.vue'
 import AlertChangeStatusModal from './components/AlertChangeStatusModal.vue'
+import axios from 'axios'
+
 //const labelList = ref([ '名稱', '試卷類別','出題方式' ])
 const ddl = ref({
   testTypeList: [ 
@@ -274,6 +276,25 @@ const savePrevValue = () => {
   console.log('savePrevValue');
 }
 
+const getVimeoVideo = () => {
+  const video_id = 854693954;
+  const access_token = `5856623336080a77bab3cd8dae1bcf7d`;
+  // const apiUrl = `https://api.vimeo.com/videos/${video_id}/pictures`;
+  const apiUrl = `https://api.vimeo.com/users/${video_id}/appearances`; 
+  // const apiUrl = `https://api.vimeo.com/users/${205832667}/appearances`; 
+  // const apiUrl = `https://api.vimeo.com/videos/${video_id}?fields=metadata.connections.pictures.uri`;
+
+  axios.get( apiUrl, {
+    Accept: 
+      "application/vnd.vimeo.*+json;version=3.4",
+      "Content-Type": "application/json",
+    headers: { 
+      Authorization: `Bearer ${access_token}` }
+  }).then((res) => {
+    console.log('res:', res);
+  })
+}
+
 onMounted(() => {
   var iframe = document.querySelector('iframe');
   // var player = new Vimeo.Player(iframe);
@@ -310,6 +331,9 @@ onMounted(() => {
     currentSecond.value = time.seconds
     console.log('second:', time.seconds);
   });
+
+  getVimeoVideo();
+
 })
 
 
