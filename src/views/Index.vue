@@ -278,9 +278,9 @@ const savePrevValue = () => {
 
 const getVimeoVideo = () => {
   const video_id = 854693954;
-  const access_token = `5856623336080a77bab3cd8dae1bcf7d`;
-  // const apiUrl = `https://api.vimeo.com/videos/${video_id}/pictures`;
-  const apiUrl = `https://api.vimeo.com/users/${video_id}/appearances`; 
+  const access_token = `375d32295adbf43761e849df00ae25a1`;
+  const apiUrl = `https://api.vimeo.com/videos/${video_id}/pictures`;
+  // const apiUrl = `https://api.vimeo.com/users/${video_id}/appearances`; 
   // const apiUrl = `https://api.vimeo.com/users/${205832667}/appearances`; 
   // const apiUrl = `https://api.vimeo.com/videos/${video_id}?fields=metadata.connections.pictures.uri`;
 
@@ -289,7 +289,8 @@ const getVimeoVideo = () => {
       "application/vnd.vimeo.*+json;version=3.4",
       "Content-Type": "application/json",
     headers: { 
-      Authorization: `Bearer ${access_token}` }
+      Authorization: `Bearer ${access_token}`
+    }
   }).then((res) => {
     console.log('res:', res);
   })
